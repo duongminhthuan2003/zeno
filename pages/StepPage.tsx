@@ -1,13 +1,105 @@
 import * as React from 'react';
-import {Dimensions, Pressable, SafeAreaView, Text, View} from 'react-native';
+import {
+  Dimensions,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {HugeiconsIcon} from '@hugeicons/react-native';
 import {ArrowLeft02Icon, RunningShoesIcon } from '@hugeicons/core-free-icons';
 import {useNavigation} from '@react-navigation/native';
 import {useBluetooth} from '../BluetoothContext.tsx';
 import {VictoryAxis, VictoryBar, VictoryChart, VictoryLabel, VictoryPie} from 'victory-native';
+import {useState} from "react";
+import {Dropdown} from "react-native-element-dropdown";
 
 const windowWidth = Dimensions.get('window').width;
 const calculatedWidth = windowWidth * 0.87 + 22;
+
+const data = [
+    { label: 'Ngày', value: '1' },
+    { label: 'Tuần', value: '2' },
+    { label: 'Tháng', value: '3' },
+];
+
+const DropdownComponent = () => {
+    const [range, setRange] = useState(null);
+    const [isFocus, setIsFocus] = useState(false);
+
+    const renderLabel = () => {
+        if (range || isFocus) {
+            return (
+                <Text style={[styles.label, isFocus && { color: 'blue' }]}>
+                    Dropdown label
+                </Text>
+            );
+        }
+        return null;
+    };
+
+    return (
+        <View style={styles.container}>
+            <Dropdown
+                style={[styles.dropdown, isFocus && { borderColor: '#006AFF' }]}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                containerStyle={styles.listContainer}
+                itemTextStyle={styles.listText}
+                data={data}
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder={'Ngày'}
+                value={range}
+                onFocus={() => setIsFocus(true)}
+                onBlur={() => setIsFocus(false)}
+                onChange={item => {
+                    setRange(item.value);
+                    setIsFocus(false);
+                }}
+                fontFamily={'Manrope-Medium'}
+            />
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: 'white',
+        width: '23%',
+        alignSelf: 'center',
+    },
+    listContainer: {
+        backgroundColor: '#006AFF',
+        borderRadius: 12,
+    },
+    listText: {
+        fontSize: 14,
+    },
+    dropdown: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 0.5,
+        borderRadius: 12,
+        paddingHorizontal: 10,
+    },
+    label: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        zIndex: 999,
+        fontSize: 14,
+    },
+    placeholderStyle: {
+        fontSize: 14,
+    },
+    selectedTextStyle: {
+        fontSize: 14,
+        marginBottom: 2,
+        marginLeft: 5,
+    },
+});
 
 const weekData = [
     {day: 1, time: 6 * 60},
@@ -144,9 +236,10 @@ const StepPage = () => {
                             />
                         </VictoryChart>
                     </View>
-
                 </View>
             </View>
+
+            <DropdownComponent />
         </SafeAreaView>
     );
 };
