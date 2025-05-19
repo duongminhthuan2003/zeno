@@ -1,16 +1,10 @@
 import * as React from 'react';
-import {Pressable, Text, TouchableOpacity, View} from 'react-native';
-import {VictoryBar,
-        VictoryChart,
-        VictoryPie,
-        VictoryTheme,
-        VictoryAxis,
-        VictoryLabel,
-        VictoryCandlestick} from 'victory-native';
+import {Pressable, Text, View} from 'react-native';
+import {VictoryPie} from 'victory-native';
 import {useBluetooth} from '../BluetoothContext.tsx';
 import {HugeiconsIcon} from '@hugeicons/react-native';
 import {Route01Icon, Clock01Icon, Fire02Icon} from '@hugeicons/core-free-icons';
-import {useNavigation} from "@react-navigation/native";
+import {useNavigation} from '@react-navigation/native';
 
 function formatSmartDecimal(num: number): string {
     if (Number.isInteger(num)) {
@@ -49,8 +43,8 @@ function StepDashboard() {
     return (
         <View>
             <View style={{alignItems:'center', marginBottom: 12}}>
-                <Text>zeno</Text>
-                <Text>Trang chủ</Text>
+                <Text style={{fontFamily: 'Manrope-Bold', marginBottom: -3, fontSize: 20}}>zeno</Text>
+                <Text style={{fontFamily: 'Manrope-Regular', fontSize: 13, color:'#777777'}}>Trang chủ</Text>
             </View>
             <View style={{backgroundColor: '#FFFFFF', justifyContent:'center', marginBottom: -15, alignItems:'center'}}>
                 <VictoryPie
@@ -71,17 +65,17 @@ function StepDashboard() {
                     height={225}
                 />
 
-                <View style={{position: 'absolute'}}>
-                    <View style={{ top:-1, left: 0, right: 0, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{fontSize: 16}}>Bước chân</Text>
+                <View style={{position: 'absolute', marginTop: -5}}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={{fontSize: 16, fontFamily: 'Manrope-Medium'}}>Bước chân</Text>
                     </View>
 
-                    <View style={{ top:-1,left: 0, right: 0, justifyContent: 'center', alignItems: 'center', margin: 5}}>
-                        <Text style={{fontSize: 46, lineHeight: 35}}>{stepCount}</Text>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', margin: 5 }}>
+                        <Text style={{fontSize: 50, lineHeight: 45, fontFamily:'Manrope-Bold'}}>{stepCount}</Text>
                     </View>
 
-                    <View style={{ top:-1,left: 0, right: 0, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{fontSize: 16}}>/{stepTarget}</Text>
+                    <View style={{ justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={{fontSize: 16, fontFamily: 'Manrope-Medium'}}>/{stepTarget}</Text>
                     </View>
                 </View>
             </View>
@@ -91,25 +85,25 @@ function StepDashboard() {
                     <View style={{backgroundColor: '#006AFF', padding: 5, width: 26, borderRadius: 7}}>
                         <HugeiconsIcon icon={Route01Icon} color={'#FFFFFF'} size={16} />
                     </View>
-                    <Text style={{fontSize: 24, marginTop:20, lineHeight: 26}}>{distance > 50 ? formatSmartDecimal(distance/1000) : formatSmartDecimal(distance)}</Text>
-                    <Text style={{lineHeight: 16 }}>{distance > 50 ? 'km' : 'm'}</Text>
+                    <Text style={{fontSize: 24, marginTop:20, fontFamily: 'Manrope-SemiBold', marginBottom: -5}}>{distance > 50 ? formatSmartDecimal(distance/1000) : formatSmartDecimal(distance)}</Text>
+                    <Text style={{fontFamily: 'Manrope-Medium'}}>{distance > 50 ? 'km' : 'm'}</Text>
                 </Pressable>
 
-                <View style={{backgroundColor:'#EFF6FF', padding: 12, width: '29%', borderRadius: 12}}>
+                <Pressable style={{backgroundColor:'#EFF6FF', padding: 12, width: '29%', borderRadius: 12}} onPress={() => navigation.navigate('StepPage')}>
                     <View style={{backgroundColor: '#006AFF', padding: 5, width: 26, borderRadius: 7}}>
                         <HugeiconsIcon icon={Clock01Icon} color={'#FFFFFF'} size={16} />
                     </View>
-                    <Text style={{fontSize: 24, marginTop:20, lineHeight: 26}}>{formatSmartDecimal(time)}</Text>
-                    <Text style={{lineHeight: 16 }}>phút</Text>
-                </View>
+                    <Text style={{fontSize: 24, marginTop:20, fontFamily: 'Manrope-SemiBold', marginBottom: -5}}>{formatSmartDecimal(time)}</Text>
+                    <Text style={{fontFamily: 'Manrope-Medium'}}>phút</Text>
+                </Pressable>
 
-                <View style={{backgroundColor:'#EFF6FF', padding: 12, width: '29%', borderRadius: 12}}>
+                <Pressable style={{backgroundColor:'#EFF6FF', padding: 12, width: '29%', borderRadius: 12}} onPress={() => navigation.navigate('StepPage')}>
                     <View style={{backgroundColor: '#006AFF', padding: 5, width: 26, borderRadius: 7}}>
                         <HugeiconsIcon icon={Fire02Icon} color={'#FFFFFF'} size={16} />
                     </View>
-                    <Text style={{fontSize: 24, marginTop:20, lineHeight: 26}}>{formatSmartDecimal(kcal)}</Text>
-                    <Text style={{lineHeight: 16 }}>kcal</Text>
-                </View>
+                    <Text style={{fontSize: 24, marginTop:20, fontFamily: 'Manrope-SemiBold', marginBottom: -5}}>{formatSmartDecimal(kcal)}</Text>
+                    <Text style={{fontFamily: 'Manrope-Medium'}}>kcal</Text>
+                </Pressable>
             </View>
         </View>
 

@@ -28,7 +28,7 @@ import { Home05Icon, WaterfallUp01Icon, Settings01Icon } from '@hugeicons/core-f
 import HomeScreen from './tabs/HomeScreen.tsx';
 import DetailScreen from './tabs/DetailScreen.tsx';
 import SettingScreen from './tabs/SettingScreen.tsx';
-import StepPage from "./pages/StepPage.tsx";
+import StepPage from './pages/StepPage.tsx';
 import { BluetoothContext } from './BluetoothContext';
 
 const bleManager = new BleManager();
@@ -51,7 +51,7 @@ const SINGLE_TAB_WIDTH = TAB_BAR_WIDTH / TAB_COUNT;
 
 function Tabs() {
     return (
-        <Tab.Navigator tabBar={(props) => <NavBar {...props} />} screenOptions={{ headerShown: false }}>
+        <Tab.Navigator tabBar={(props) => <NavBar {...props} />} screenOptions={{ headerShown: false, animation: 'shift'}}>
             <Tab.Screen name="HomeScreen" component={HomeScreen} />
             <Tab.Screen name="DetailScreen" component={DetailScreen} />
             <Tab.Screen name="SettingScreen" component={SettingScreen} />
