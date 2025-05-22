@@ -12,7 +12,7 @@ import {HugeiconsIcon} from '@hugeicons/react-native';
 import {RunningShoesIcon} from '@hugeicons/core-free-icons';
 
 const windowWidth = Dimensions.get('window').width;
-const calculatedWidth = windowWidth * 0.87 + 22;
+const calculatedWidth = windowWidth - 22;
 
 const dayData = [
     {day: 1, time: 6 * 60},
@@ -56,6 +56,8 @@ function StepCard() {
                 >
                     {/*<Text style={{position: 'absolute', top: 147, left: 1, fontSize: 13, fontFamily:'Manrope-Medium'}}>{range === '1' ? '00:00' : range === '2' ? 'Thứ hai' : '1'}</Text>*/}
                     {/*<Text style={{position: 'absolute', top: 147, right: 1, fontSize: 13, fontFamily:'Manrope-Medium'}}>{range === '1' ? '23:59' : range === '2' ? 'Chủ nhật' : '31'}</Text>*/}
+                    <Text style={{position: 'absolute', top: 147, left: 1, fontSize: 13, fontFamily:'Manrope-Medium'}}>00:00</Text>
+                    <Text style={{position: 'absolute', top: 147, right: 1, fontSize: 13, fontFamily:'Manrope-Medium'}}>23:59</Text>
                     <VictoryChart
                         height={190}
                         width={452}

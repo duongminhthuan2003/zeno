@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Pressable, Text, View} from 'react-native';
+import {Dimensions, Pressable, Text, View} from 'react-native';
 import {VictoryPie} from 'victory-native';
 import {useBluetooth} from '../BluetoothContext.tsx';
 import {HugeiconsIcon} from '@hugeicons/react-native';
@@ -25,6 +25,8 @@ function formatSmartDecimal(num: number): string {
 //         return `${formatSmartDecimal(km)} km`;
 //     }
 // }
+const windowWidth = Dimensions.get('window').width;
+const calculatedWidth = (windowWidth - 11 * 4) / 3;
 
 function StepDashboard() {
     const { stepCount } = useBluetooth();
@@ -77,7 +79,7 @@ function StepDashboard() {
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%', gap: 11, marginBottom:11}}>
-                <Pressable style={{backgroundColor:'#EFF6FF', padding: 12, width: '29%', borderRadius: 12}} onPress={() => navigation.navigate('StepPage')}>
+                <Pressable style={{backgroundColor:'#EFF6FF', padding: 12, width: calculatedWidth, borderRadius: 12}} onPress={() => navigation.navigate('StepPage')}>
                     <View style={{backgroundColor: '#006AFF', padding: 5, width: 26, borderRadius: 7}}>
                         <HugeiconsIcon icon={Route01Icon} color={'#FFFFFF'} size={16} />
                     </View>
@@ -85,7 +87,7 @@ function StepDashboard() {
                     <Text style={{fontFamily: 'Manrope-Medium'}}>{distance > 50 ? 'km' : 'm'}</Text>
                 </Pressable>
 
-                <Pressable style={{backgroundColor:'#EFF6FF', padding: 12, width: '29%', borderRadius: 12}} onPress={() => navigation.navigate('StepPage')}>
+                <Pressable style={{backgroundColor:'#EFF6FF', padding: 12, width: calculatedWidth, borderRadius: 12}} onPress={() => navigation.navigate('StepPage')}>
                     <View style={{backgroundColor: '#006AFF', padding: 5, width: 26, borderRadius: 7}}>
                         <HugeiconsIcon icon={Clock01Icon} color={'#FFFFFF'} size={16} />
                     </View>
@@ -93,7 +95,7 @@ function StepDashboard() {
                     <Text style={{fontFamily: 'Manrope-Medium'}}>phút</Text>
                 </Pressable>
 
-                <Pressable style={{backgroundColor:'#EFF6FF', padding: 12, width: '29%', borderRadius: 12}} onPress={() => navigation.navigate('StepPage')}>
+                <Pressable style={{backgroundColor:'#EFF6FF', padding: 12, width: calculatedWidth, borderRadius: 12}} onPress={() => navigation.navigate('StepPage')}>
                     <View style={{backgroundColor: '#006AFF', padding: 5, width: 26, borderRadius: 7}}>
                         <HugeiconsIcon icon={Fire02Icon} color={'#FFFFFF'} size={16} />
                     </View>

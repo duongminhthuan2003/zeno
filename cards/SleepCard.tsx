@@ -12,7 +12,7 @@ import {HugeiconsIcon} from '@hugeicons/react-native';
 import {Route01Icon, Clock01Icon, Fire02Icon, Moon02Icon} from '@hugeicons/core-free-icons';
 
 const windowWidth = Dimensions.get('window').width;
-const calculatedWidth = windowWidth * 0.87 + 22;
+const calculatedWidth = windowWidth - 22;
 
 const dataSleep = [
     {day: 1, time: 6 * 60},

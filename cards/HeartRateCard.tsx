@@ -189,7 +189,7 @@ const dataHeart = [
 ];
 
 const windowWidth = Dimensions.get('window').width;
-const calculatedWidth = windowWidth * 0.87 + 22;
+const calculatedWidth = windowWidth - 22;
 
 const BPM = 103;
 
