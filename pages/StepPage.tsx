@@ -8,15 +8,16 @@ import {
   View,
 } from 'react-native';
 import {HugeiconsIcon} from '@hugeicons/react-native';
-import {ArrowLeft02Icon, RunningShoesIcon } from '@hugeicons/core-free-icons';
+import {ArrowLeft02Icon, RunningShoesIcon} from '@hugeicons/core-free-icons';
 import {useNavigation} from '@react-navigation/native';
 import {useBluetooth} from '../BluetoothContext.tsx';
 import {VictoryAxis, VictoryBar, VictoryChart, VictoryLabel, VictoryPie} from 'victory-native';
-import {useState} from "react";
-import {Dropdown} from "react-native-element-dropdown";
+import {useState} from 'react';
+import {Dropdown} from 'react-native-element-dropdown';
 
 const windowWidth = Dimensions.get('window').width;
 const calculatedWidth = windowWidth * 0.87 + 22;
+
 
 const data = [
     { label: 'Ngày', value: '1' },
@@ -24,8 +25,7 @@ const data = [
     { label: 'Tháng', value: '3' },
 ];
 
-const DropdownComponent = () => {
-    const [range, setRange] = useState(null);
+const DropdownComponent = ({ range, setRange }) => {
     const [isFocus, setIsFocus] = useState(false);
 
     const renderLabel = () => {
@@ -111,6 +111,23 @@ const weekData = [
     {day: 7, time: 6 * 60 + 36},
 ];
 
+const twoWeeksData = [
+    {day: 1, time: 6 * 60},
+    {day: 2, time: 6 * 60 + 27},
+    {day: 3, time: 7 * 60 + 18},
+    {day: 4, time: 6 * 60 + 18},
+    {day: 5, time: 7 * 60 + 34},
+    {day: 6, time: 6 * 60 + 35},
+    {day: 7, time: 6 * 60 + 36},
+    {day: 8, time: 6 * 60},
+    {day: 9, time: 6 * 60 + 27},
+    {day: 10, time: 7 * 60 + 18},
+    {day: 11, time: 6 * 60 + 18},
+    {day: 12, time: 7 * 60 + 34},
+    {day: 13, time: 6 * 60 + 35},
+    {day: 14, time: 6 * 60 + 36},
+];
+
 const dayData = [
     {day: 1, time: 6 * 60},
     {day: 2, time: 6 * 60 + 27},
@@ -137,6 +154,33 @@ const dayData = [
     {day: 23, time: 0},
     {day: 24, time: 0},
 ];
+
+const dayData1 = [
+    {day: 1, time: 0},
+    {day: 2, time: 0},
+    {day: 3, time: 7 * 60 + 18},
+    {day: 4, time: 6 * 60 + 18},
+    {day: 5, time: 7 * 60 + 34},
+    {day: 6, time: 6 * 60 + 35},
+    {day: 7, time: 6 * 60 + 36},
+    {day: 8, time: 7 * 60 + 37},
+    {day: 9, time: 6 * 60 + 38},
+    {day: 10, time: 8 * 60 + 39},
+    {day: 11, time: 6 * 60 + 40},
+    {day: 12, time: 0},
+    {day: 13, time: 0},
+    {day: 14, time: 0},
+    {day: 15, time: 0},
+    {day: 16, time: 0},
+    {day: 17, time: 0},
+    {day: 18, time: 0},
+    {day: 19, time: 0},
+    {day: 20, time: 0},
+    {day: 21, time: 0},
+    {day: 22, time: 0},
+    {day: 23, time: 0},
+    {day: 24, time: 0},
+];
 const StepPage = () => {
     const navigation = useNavigation<any>();
 
@@ -144,7 +188,15 @@ const StepPage = () => {
     let stepTarget = 5000;
     let stepRemaining = stepTarget - stepCount;
 
-    let rangeSelector = 0; //0: day, 1: week, 2: month
+    const [range, setRange] = useState('1');
+
+    const chartData = range === '1' ? dayData
+        : range === '2' ? weekData
+            : dayData1;
+
+    const tickData = range === '1' ? 24 : range === '2' ? 7 : 24;
+    const tickValues = Array.from({ length: tickData }, (_, i) => i + 1);
+
     return (
         <SafeAreaView>
             <View style={{alignItems:'center', marginBottom: 12}}>
@@ -152,8 +204,8 @@ const StepPage = () => {
                 <Text style={{fontFamily: 'Manrope-Regular', fontSize: 13, color:'#006AFF'}}>Bước đi</Text>
             </View>
 
-            <Pressable style={{position:'absolute', flexDirection:'row', marginHorizontal: 11, marginTop: 17}} onPress={() => {navigation.goBack()}}>
-                <HugeiconsIcon icon={ArrowLeft02Icon} size={20}></HugeiconsIcon>
+            <Pressable style={{position:'absolute', flexDirection:'row', marginHorizontal: 11, marginTop: 17}} onPress={() => {navigation.goBack();}}>
+                <HugeiconsIcon icon={ArrowLeft02Icon} size={20} />
                 <Text style={{fontFamily: 'Manrope-Medium', marginHorizontal: 8, fontSize: 15, marginTop: -2}}>Trở về</Text>
             </Pressable>
 
@@ -200,17 +252,19 @@ const StepPage = () => {
                     <View
                         style={{ top: -35, alignItems: 'center' }}
                     >
-                        <Text style={{position: 'absolute', top: 147, left: 1, fontSize: 13, fontFamily:'Manrope-Medium'}}>14 ngày trước</Text>
-                        <Text style={{position: 'absolute', top: 147, right: 1, fontSize: 13, fontFamily:'Manrope-Medium'}}>Hôm nay</Text>
+                        <Text style={{position: 'absolute', top: 147, left: 1, fontSize: 13, fontFamily:'Manrope-Medium'}}>{range === '1' ? '00:00' : range === '2' ? 'Thứ hai' : '1'}</Text>
+                        <Text style={{position: 'absolute', top: 147, right: 1, fontSize: 13, fontFamily:'Manrope-Medium'}}>{range === '1' ? '23:59' : range === '2' ? 'Chủ nhật' : '31'}</Text>
                         <VictoryChart
                             height={190}
                             width={452}
+                            domain={{ x: [1, tickValues.length] }}
                             domainPadding={{ x: 9 }}
                         >
 
                             <VictoryAxis
                                 dependentAxis={false}
-                                tickValues={[ 1, 24 ]} //day = 24, week = 7, month = daysInMonth(month, year)
+                                // tickValues={tickValues} //day = 24, week = 7, month = daysInMonth(month, year)
+                                tickValues={[1, 14]}
                                 tickFormat={(t) => (t === 1 ? ' ' : ' ')} // Đổi nhãn
                                 tickLabelComponent={
                                     <VictoryLabel />
@@ -221,7 +275,8 @@ const StepPage = () => {
                                 }}
                             />
                             <VictoryBar
-                                data={dayData}
+                                // data={chartData}
+                                data={twoWeeksData}
                                 alignment="middle"
                                 x = "day"
                                 y = "time"
@@ -239,7 +294,7 @@ const StepPage = () => {
                 </View>
             </View>
 
-            <DropdownComponent />
+            {/*<DropdownComponent range={range} setRange={setRange}/>*/}
         </SafeAreaView>
     );
 };

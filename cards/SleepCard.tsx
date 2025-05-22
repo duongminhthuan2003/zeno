@@ -39,13 +39,13 @@ function SleepCard() {
                     <View style={{backgroundColor: '#6865FF', padding: 5, width: 26, borderRadius: 7}}>
                         <HugeiconsIcon icon={Moon02Icon} color={'#FFFFFF'} size={16} />
                     </View>
-                    <Text style={{fontSize: 15, lineHeight: 20, marginLeft: 10}}>Giấc ngủ</Text>
+                    <Text style={{fontSize: 15, lineHeight: 20, marginLeft: 10, fontFamily:'Manrope-Medium'}}>Giấc ngủ</Text>
                 </View>
                 <View
                     style={{ top: -35, alignItems: 'center' }}
                 >
-                    <Text style={{position: 'absolute', top: 145, left: 1, fontSize: 13}}>14 ngày trước</Text>
-                    <Text style={{position: 'absolute', top: 145, right: 1, fontSize: 13}}>Hôm nay</Text>
+                    <Text style={{position: 'absolute', top: 145, left: 1, fontSize: 13, fontFamily:'Manrope-Medium'}}>14 ngày trước</Text>
+                    <Text style={{position: 'absolute', top: 145, right: 1, fontSize: 13, fontFamily:'Manrope-Medium'}}>Hôm nay</Text>
                     <VictoryChart
                         height={190}
                         width={452}

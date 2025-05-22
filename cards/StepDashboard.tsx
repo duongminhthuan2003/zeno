@@ -42,10 +42,6 @@ function StepDashboard() {
     }
     return (
         <View>
-            <View style={{alignItems:'center', marginBottom: 12}}>
-                <Text style={{fontFamily: 'Manrope-Bold', marginBottom: -3, fontSize: 20}}>zeno</Text>
-                <Text style={{fontFamily: 'Manrope-Regular', fontSize: 13, color:'#777777'}}>Trang chủ</Text>
-            </View>
             <View style={{backgroundColor: '#FFFFFF', justifyContent:'center', marginBottom: -15, alignItems:'center'}}>
                 <VictoryPie
                     data={[
@@ -54,15 +50,15 @@ function StepDashboard() {
                     ]}
                     colorScale={['#006AFF', '#EFF6FF']}
                     labels={[]}
-                    radius={110}
+                    radius={106}
                     cornerRadius={20}
                     startAngle={-135}
                     endAngle={135}
-                    innerRadius={100}
+                    innerRadius={96}
                     animate={{
                         duration: 2000,
                     }}
-                    height={225}
+                    height={215}
                 />
 
                 <View style={{position: 'absolute', marginTop: -5}}>

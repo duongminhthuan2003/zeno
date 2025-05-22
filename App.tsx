@@ -30,6 +30,7 @@ import DetailScreen from './tabs/DetailScreen.tsx';
 import SettingScreen from './tabs/SettingScreen.tsx';
 import StepPage from './pages/StepPage.tsx';
 import { BluetoothContext } from './BluetoothContext';
+import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 const bleManager = new BleManager();
 
@@ -249,7 +250,9 @@ function App() {
       return () => sub.remove();
   }, [device]);
 
-  return (
+  SystemNavigationBar.setNavigationColor('white', 'light', 'navigation');
+
+    return (
       <SafeAreaView
           style={styles.safeArea}
       >
