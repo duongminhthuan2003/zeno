@@ -25,45 +25,45 @@ const data = [
     { label: 'Tháng', value: '3' },
 ];
 
-const DropdownComponent = ({ range, setRange }) => {
-    const [isFocus, setIsFocus] = useState(false);
-
-    const renderLabel = () => {
-        if (range || isFocus) {
-            return (
-                <Text style={[styles.label, isFocus && { color: 'blue' }]}>
-                    Dropdown label
-                </Text>
-            );
-        }
-        return null;
-    };
-
-    return (
-        <View style={styles.container}>
-            <Dropdown
-                style={[styles.dropdown, isFocus && { borderColor: '#006AFF' }]}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                containerStyle={styles.listContainer}
-                itemTextStyle={styles.listText}
-                data={data}
-                maxHeight={300}
-                labelField="label"
-                valueField="value"
-                placeholder={'Ngày'}
-                value={range}
-                onFocus={() => setIsFocus(true)}
-                onBlur={() => setIsFocus(false)}
-                onChange={item => {
-                    setRange(item.value);
-                    setIsFocus(false);
-                }}
-                fontFamily={'Manrope-Medium'}
-            />
-        </View>
-    );
-};
+// const DropdownComponent = ({ range, setRange }) => {
+//     const [isFocus, setIsFocus] = useState(false);
+//
+//     const renderLabel = () => {
+//         if (range || isFocus) {
+//             return (
+//                 <Text style={[styles.label, isFocus && { color: 'blue' }]}>
+//                     Dropdown label
+//                 </Text>
+//             );
+//         }
+//         return null;
+//     };
+//
+//     return (
+//         <View style={styles.container}>
+//             <Dropdown
+//                 style={[styles.dropdown, isFocus && { borderColor: '#006AFF' }]}
+//                 placeholderStyle={styles.placeholderStyle}
+//                 selectedTextStyle={styles.selectedTextStyle}
+//                 containerStyle={styles.listContainer}
+//                 itemTextStyle={styles.listText}
+//                 data={data}
+//                 maxHeight={300}
+//                 labelField="label"
+//                 valueField="value"
+//                 placeholder={'Ngày'}
+//                 value={range}
+//                 onFocus={() => setIsFocus(true)}
+//                 onBlur={() => setIsFocus(false)}
+//                 onChange={item => {
+//                     setRange(item.value);
+//                     setIsFocus(false);
+//                 }}
+//                 fontFamily={'Manrope-Medium'}
+//             />
+//         </View>
+//     );
+// };
 
 const styles = StyleSheet.create({
     container: {

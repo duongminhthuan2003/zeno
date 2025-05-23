@@ -19,7 +19,7 @@ function TempCard() {
         <View style={{backgroundColor:'#FFF9EB', padding: 12, width: calculatedWidth, height: 180, borderRadius: 12, alignSelf: 'center'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <View style={{backgroundColor: '#FFB200', padding: 5, width: 26, borderRadius: 7}}>
-                    <HugeiconsIcon icon={BloodPressureIcon} color={'#FFFFFF'} size={16} />
+                    <HugeiconsIcon icon={TemperatureIcon} color={'#FFFFFF'} size={16} />
                 </View>
                 <Text style={{fontSize: 15, lineHeight: 20, marginLeft: 10, fontFamily: 'Manrope-Medium'}}>Nhiệt độ cơ thể</Text>
             </View>
