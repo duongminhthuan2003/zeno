@@ -29,6 +29,7 @@ import HomeScreen from './tabs/HomeScreen.tsx';
 import DetailScreen from './tabs/DetailScreen.tsx';
 import SettingScreen from './tabs/SettingScreen.tsx';
 import StepPage from './pages/StepPage.tsx';
+import HRPage from './pages/HRPage';
 import { BluetoothContext } from './BluetoothContext';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 
@@ -270,6 +271,7 @@ function App() {
                         <Stack.Navigator screenOptions={{headerShown: false}}>
                             <Stack.Screen name="Tabs" component={Tabs} />
                             <Stack.Screen name="StepPage" component={StepPage} />
+                            <Stack.Screen name="HRPage" component={HRPage} />
                         </Stack.Navigator>
                   </NavigationContainer>
               </BluetoothContext.Provider>

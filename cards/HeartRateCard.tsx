@@ -16,6 +16,8 @@ import {
   Moon02Icon,
   FavouriteIcon,
 } from '@hugeicons/core-free-icons';
+import {useNavigation} from "@react-navigation/native";
+import HRPage from "../pages/HRPage.tsx";
 
 const dataHeart = [
     {
@@ -194,8 +196,10 @@ const calculatedWidth = windowWidth - 22;
 const BPM = 103;
 
 function HeartRateCard(){
+    const navigation = useNavigation<any>();
+
     return (
-        <Pressable>
+        <Pressable onPress={() => {navigation.navigate(HRPage)}}>
             <View style={{alignItems: 'center'}}>
                 <View style={{backgroundColor:'#FFF6F8', padding: 12, width: calculatedWidth, height: 180, borderRadius: 12}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>

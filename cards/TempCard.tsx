@@ -26,13 +26,13 @@ function TempCard() {
 
             <View style={{flexDirection: 'row', marginTop: 20, justifyContent:'space-between', alignItems:'center'}}>
                 <View style={{alignContent:'flex-end'}}>
-                    <Text style={{fontSize: 40, fontFamily: 'Manrope-SemiBold', marginBottom: -3}}>36,8
+                    <Text style={{fontSize: 40, fontFamily: 'Manrope-SemiBold', marginBottom: -3}}>36.8
                         <View><Text style={{fontSize: 32, fontFamily: 'Manrope-Bold'}}>o</Text></View>
                         C</Text>
                     <Text style={{fontFamily: 'Manrope-Medium'}}>Đo gần nhất: 10:30 - Hôm nay</Text>
                 </View>
                 <Pressable style={{backgroundColor:'#FFB200', height:'auto', borderRadius: 25}}>
-                    <Text style={{color:'#FFFFFF', marginVertical: 8, marginHorizontal:12, fontFamily: 'Manrope-SemiBold', top: -1}}>Cập nhật nhiệt độ</Text>
+                    <Text style={{color:'#FFFFFF', marginVertical: 8, marginHorizontal:12, fontFamily: 'Manrope-Medium', top: -1}}>Cập nhật nhiệt độ</Text>
                 </Pressable>
             </View>
 

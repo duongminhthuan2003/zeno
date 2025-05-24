@@ -26,7 +26,7 @@ function WaterCard() {
 
             <View>
                 <Text style={{fontSize: 30, fontFamily: 'Manrope-SemiBold', marginBottom: -5}}>1g 16ph</Text>
-                {/*<Text style={{fontFamily: 'Manrope-Medium'}}></Text>*/}
+                <Text style={{fontFamily: 'Manrope-Medium'}}>Lặp lại trong 1g 30ph</Text>
             </View>
         </View>
     );

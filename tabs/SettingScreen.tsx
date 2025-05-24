@@ -26,7 +26,7 @@ const SettingScreen = () => {
                 </View>
 
                 <View style={{position: 'absolute', right: 0, marginTop: 12, marginRight: 12, backgroundColor: '#FF7B24', borderRadius: 7}}>
-                    <Text style={{fontFamily: 'Manrope-Medium', color: '#FFFFFF', marginVertical: 4, marginHorizontal: 10, bottom: 1}}>{connectionStatus}</Text>
+                    <Text style={{fontFamily: 'Manrope-Medium', color: '#FFFFFF', marginVertical: 4, marginHorizontal: 12, bottom: 1}}>{connectionStatus}</Text>
                 </View>
 
                 <View>

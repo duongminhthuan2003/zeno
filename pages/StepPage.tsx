@@ -16,7 +16,7 @@ import {useState} from 'react';
 import {Dropdown} from 'react-native-element-dropdown';
 
 const windowWidth = Dimensions.get('window').width;
-const calculatedWidth = windowWidth * 0.87 + 22;
+const calculatedWidth = windowWidth - 22;
 
 
 const data = [
