@@ -6,6 +6,7 @@ interface BluetoothContextType {
     stepCount: number;
     fallDetected: boolean;
     connectionStatus: string;
+    heartRate: number|null;
 }
 
 export const BluetoothContext = createContext<BluetoothContextType>({
@@ -13,6 +14,7 @@ export const BluetoothContext = createContext<BluetoothContextType>({
     stepCount: 0,
     fallDetected: false,
     connectionStatus: 'Searching...',
+    heartRate: 0,
 });
 
 export const useBluetooth = () => useContext(BluetoothContext);

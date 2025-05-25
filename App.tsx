@@ -30,6 +30,7 @@ import DetailScreen from './tabs/DetailScreen.tsx';
 import SettingScreen from './tabs/SettingScreen.tsx';
 import StepPage from './pages/StepPage.tsx';
 import HRPage from './pages/HRPage';
+import TempPage from './pages/TempPage';
 import { BluetoothContext } from './BluetoothContext';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 
@@ -144,6 +145,7 @@ function App() {
   const [device, setDevice] = useState<Device | null>(null);
 
   const [stepCount, setStepCount] = useState(4512);
+  const [heartRate, setHeartRate] = useState<number | null>(103);
 
   useEffect(() => {
       if (!(Platform.OS == 'ios')){
@@ -244,6 +246,11 @@ function App() {
                   }
               } else if (decoded.includes('FALL')) {
                   setFallDetected(true);
+              } else if (decoded.includes('HR:')) {
+                  const match = decoded.match(/HR:(\d+)/);
+                  if (match) {
+                      setHeartRate(parseInt(match[1], 10));
+                  }
               }
           }
       );
@@ -265,13 +272,14 @@ function App() {
               />
 
               <BluetoothContext.Provider
-                  value={{ device, stepCount, fallDetected, connectionStatus }}
+                  value={{ device, stepCount, fallDetected, connectionStatus, heartRate }}
               >
                   <NavigationContainer theme={MyTheme}>
                         <Stack.Navigator screenOptions={{headerShown: false}}>
                             <Stack.Screen name="Tabs" component={Tabs} />
                             <Stack.Screen name="StepPage" component={StepPage} />
                             <Stack.Screen name="HRPage" component={HRPage} />
+                            <Stack.Screen name="TempPage" component={TempPage} />
                         </Stack.Navigator>
                   </NavigationContainer>
               </BluetoothContext.Provider>

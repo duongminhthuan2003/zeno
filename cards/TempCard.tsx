@@ -10,13 +10,16 @@ import {VictoryBar,
 import {useBluetooth} from '../BluetoothContext.tsx';
 import {HugeiconsIcon} from '@hugeicons/react-native';
 import {BloodPressureIcon, TemperatureIcon} from '@hugeicons/core-free-icons';
+import {useNavigation} from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 const calculatedWidth = windowWidth - 22;
 
 function TempCard() {
+    const navigation = useNavigation<any>();
+
     return (
-        <View style={{backgroundColor:'#FFF9EB', padding: 12, width: calculatedWidth, height: 180, borderRadius: 12, alignSelf: 'center'}}>
+        <Pressable style={{backgroundColor:'#FFF9EB', padding: 12, width: calculatedWidth, height: 180, borderRadius: 12, alignSelf: 'center'}} onPress={() => {navigation.navigate('TempPage');}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <View style={{backgroundColor: '#FFB200', padding: 5, width: 26, borderRadius: 7}}>
                     <HugeiconsIcon icon={TemperatureIcon} color={'#FFFFFF'} size={16} />
@@ -35,8 +38,7 @@ function TempCard() {
                     <Text style={{color:'#FFFFFF', marginVertical: 8, marginHorizontal:12, fontFamily: 'Manrope-Medium', top: -1}}>Cập nhật nhiệt độ</Text>
                 </Pressable>
             </View>
-
-        </View>
+        </Pressable>
     )
 }
 

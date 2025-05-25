@@ -8,7 +8,7 @@ import {
     View,
 } from 'react-native';
 import {HugeiconsIcon} from '@hugeicons/react-native';
-import {ArrowLeft02Icon, FavouriteIcon, Moon02Icon} from '@hugeicons/core-free-icons';
+import {ArrowLeft02Icon, FavouriteIcon, TradeUpIcon, TradeDownIcon, WaterfallUp01Icon} from '@hugeicons/core-free-icons';
 import {useNavigation} from '@react-navigation/native';
 import {useBluetooth} from '../BluetoothContext.tsx';
 import {
@@ -25,8 +25,8 @@ import {useState} from 'react';
 const windowWidth = Dimensions.get('window').width;
 const calculatedWidth = windowWidth - 22;
 const calculatedWidthHalf = (windowWidth - 11 * 3) / 2;
-const fixWidth = 12;
-const cardHeight = 200;
+const fixWidth = 15;
+const cardHeight = 220;
 const cardHeightHalf = (cardHeight - 11) / 2;
 
 const dataHeart = [
@@ -132,6 +132,7 @@ const dataHeart = [
 
 function HRPage() {
     const navigation = useNavigation<any>();
+    const { heartRate } = useBluetooth();
 
     return (
         <View>
@@ -153,30 +154,49 @@ function HRPage() {
                     <Text style={{fontSize: 15, lineHeight: 20, marginLeft: 10, fontFamily:'Manrope-Medium'}}>Nhịp tim hiện tại</Text>
                 </View>
 
-                <View>
-                    <Text>86 bpm</Text>
-                    <Text>Chu kỳ đo: 2 giây</Text>
+                <View style={{alignItems: 'center', alignContent:'center', marginTop: 15}}>
+                    <Text style={{fontFamily:'Manrope-SemiBold', fontSize: 40}}>{heartRate} bpm</Text>
+                    <Text style={{fontFamily:'Manrope-Medium', fontSize: 15, color: '#888888'}}>Chu kỳ đo: 2 giây</Text>
                 </View>
             </View>
 
             <View style={{flexDirection: 'row', gap: 11, alignSelf:'center'}}>
                 <View>
                     <View style={{width: calculatedWidthHalf - fixWidth, backgroundColor: '#FFF6F8', height: cardHeightHalf, padding: 12, borderRadius: 12, marginTop: 11}}>
-
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <View style={{backgroundColor: '#FF2450', padding: 5, width: 26, borderRadius: 7}}>
+                                <HugeiconsIcon icon={TradeUpIcon} color={'#FFFFFF'} size={16} />
+                            </View>
+                            <Text style={{fontSize: 15, lineHeight: 20, marginLeft: 10, fontFamily:'Manrope-Medium'}}>Cao nhất</Text>
+                        </View>
+                        <Text style={{fontFamily:'Manrope-SemiBold', fontSize: 27, alignSelf: 'center', marginTop: 4}}>118bpm</Text>
                     </View>
 
                     <View style={{width: calculatedWidthHalf - fixWidth, backgroundColor: '#FFF6F8', height: cardHeightHalf, padding: 12, borderRadius: 12, marginTop: 11}}>
-
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <View style={{backgroundColor: '#FF2450', padding: 5, width: 26, borderRadius: 7}}>
+                                <HugeiconsIcon icon={TradeDownIcon} color={'#FFFFFF'} size={16} />
+                            </View>
+                            <Text style={{fontSize: 15, lineHeight: 20, marginLeft: 10, fontFamily:'Manrope-Medium'}}>Thấp nhất</Text>
+                        </View>
+                        <Text style={{fontFamily:'Manrope-SemiBold', fontSize: 27, alignSelf: 'center', marginTop: 4}}>43bpm</Text>
                     </View>
                 </View>
 
                 <View style={{width: calculatedWidthHalf + fixWidth, backgroundColor: '#FFF6F8', height: cardHeight, padding: 12, borderRadius: 12, marginTop: 11}}>
-                    <View style={{alignSelf: 'center', justifyContent:'center', bottom: 15}}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <View style={{backgroundColor: '#FF2450', padding: 5, width: 26, borderRadius: 7}}>
+                            <HugeiconsIcon icon={WaterfallUp01Icon} color={'#FFFFFF'} size={16} />
+                        </View>
+                        <Text style={{fontSize: 15, lineHeight: 20, marginLeft: 10, fontFamily:'Manrope-Medium'}}>Thống kê</Text>
+                    </View>
+
+                    <View style={{alignSelf: 'center', justifyContent:'center', bottom: 30}}>
                         <VictoryChart
                             domainPadding={{ x: 5 }}
                             theme={VictoryTheme.clean}
-                            height={220}
-                            width={280}
+                            height={240}
+                            width={290}
                         >
                             <VictoryAxis
                                 dependentAxis={false}
@@ -201,7 +221,7 @@ function HRPage() {
                                         fillOpacity: 1,
                                     },
                                 }}
-                                candleWidth={4}
+                                candleWidth={3.5}
                             />
                         </VictoryChart>
                     </View>

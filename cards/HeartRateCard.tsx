@@ -16,8 +16,8 @@ import {
   Moon02Icon,
   FavouriteIcon,
 } from '@hugeicons/core-free-icons';
-import {useNavigation} from "@react-navigation/native";
-import HRPage from "../pages/HRPage.tsx";
+import {useNavigation} from '@react-navigation/native';
+import HRPage from '../pages/HRPage.tsx';
 
 const dataHeart = [
     {
@@ -193,15 +193,14 @@ const dataHeart = [
 const windowWidth = Dimensions.get('window').width;
 const calculatedWidth = windowWidth - 22;
 
-const BPM = 103;
-
 function HeartRateCard(){
     const navigation = useNavigation<any>();
+    const {heartRate} = useBluetooth();
 
     return (
         <Pressable onPress={() => {navigation.navigate(HRPage)}}>
             <View style={{alignItems: 'center'}}>
-                <View style={{backgroundColor:'#FFF6F8', padding: 12, width: calculatedWidth, height: 180, borderRadius: 12}}>
+                <Pressable style={{backgroundColor:'#FFF6F8', padding: 12, width: calculatedWidth, height: 180, borderRadius: 12}} onPress={() => {navigation.navigate(HRPage)}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <View style={{backgroundColor: '#FF2450', padding: 5, width: 26, borderRadius: 7}}>
                             <HugeiconsIcon icon={FavouriteIcon} color={'#FFFFFF'} size={16} />
@@ -209,15 +208,15 @@ function HeartRateCard(){
                         <Text style={{fontFamily: 'Manrope-Medium', fontSize: 15, lineHeight: 20, marginLeft: 10}}>Nhịp tim</Text>
                     </View>
                     <View>
-                        <Text style={{top: 65, fontFamily: 'Manrope-Medium'}}><Text style={{fontFamily: 'Manrope-SemiBold', fontSize: 50}}>{BPM}</Text> bpm</Text>
+                        <Text style={{top: 65, fontFamily: 'Manrope-Medium', fontSize: 20}}><Text style={{fontFamily: 'Manrope-SemiBold', fontSize: 50}}>{heartRate}</Text> bpm</Text>
                         <Text style={{fontFamily: 'Manrope-Medium', position: 'absolute', right: 132, top: 110, fontSize: 12}}>24h trước</Text>
                         <Text style={{fontFamily: 'Manrope-Medium', position: 'absolute', right: 0, top: 110, fontSize: 12}}>Hiện tại</Text>
-                        <View style={{top: -50, flex: 1, alignItems: 'flex-end', left: 115, position: 'absolute'}}>
+                        <View style={{top: -50, flex: 1, alignItems: 'flex-end', left: 120, position: 'absolute'}}>
                             <VictoryChart
                                 domainPadding={{ x: 5 }}
                                 theme={VictoryTheme.clean}
                                 height={210}
-                                width={300}
+                                width={305}
                             >
                                 <VictoryAxis
                                     dependentAxis={false}
@@ -247,7 +246,7 @@ function HeartRateCard(){
                             </VictoryChart>
                         </View>
                     </View>
-                </View>
+                </Pressable>
             </View>
         </Pressable>
     );

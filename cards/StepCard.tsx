@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dimensions, Text, View} from 'react-native';
+import {Dimensions, Pressable, Text, View} from 'react-native';
 import {VictoryBar,
     VictoryChart,
     VictoryPie,
@@ -10,6 +10,10 @@ import {VictoryBar,
 import {useBluetooth} from '../BluetoothContext.tsx';
 import {HugeiconsIcon} from '@hugeicons/react-native';
 import {RunningShoesIcon} from '@hugeicons/core-free-icons';
+import {useNavigation} from "@react-navigation/native";
+import { collection, getDocs, onSnapshot } from 'firebase/firestore'; // nếu dùng Firestore
+import { db } from '../firebaseConfig';
+import {useEffect, useState} from "react";
 
 const windowWidth = Dimensions.get('window').width;
 const calculatedWidth = windowWidth - 22;
@@ -41,9 +45,54 @@ const dayData = [
     {day: 24, time: 0},
 ];
 
+const subscribeStepsPerHour = (setData: (data: any[]) => void) => {
+    const stepsRef = collection(db, 'users', '0001', 'steps');
+
+    const unsubscribe = onSnapshot(stepsRef, (snapshot) => {
+        const hourBuckets = Array(24).fill(0);
+        const now = new Date();
+
+        const localYear = now.getFullYear();
+        const localMonth = now.getMonth();
+        const localDate = now.getDate();
+
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            if (data.timestamp && data.count) {
+                const date = new Date(data.timestamp);
+                if (
+                    date.getFullYear() === localYear &&
+                    date.getMonth() === localMonth &&
+                    date.getDate() === localDate
+                ) {
+                    const hour = date.getHours();
+                    hourBuckets[hour] += data.count;
+                }
+            }
+        });
+
+        const result = hourBuckets.map((count, i) => ({
+            day: i + 1,
+            time: count,
+        }));
+
+        setData(result);
+    });
+
+    return unsubscribe;
+};
+
 function StepCard() {
+    const navigation = useNavigation<any>();
+    const [chartData, setChartData] = useState([]);
+
+    useEffect(() => {
+        const unsubscribe = subscribeStepsPerHour(setChartData);
+        return () => unsubscribe(); // cleanup listener
+    }, []);
+
     return (
-        <View style={{alignItems: 'center', marginBottom: 11}}>
+        <Pressable style={{alignItems: 'center', marginBottom: 11}} onPress={() => {navigation.navigate('StepPage');}}>
             <View style={{backgroundColor:'#EFF6FF', padding: 12, width: calculatedWidth, height: 180, borderRadius: 12}}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <View style={{backgroundColor: '#006AFF', padding: 5, width: 26, borderRadius: 7}}>
@@ -79,7 +128,7 @@ function StepCard() {
                         />
                         <VictoryBar
                             // data={chartData}
-                            data={dayData}
+                            data={chartData.length > 0 ? chartData : dayData}
                             alignment="middle"
                             x = "day"
                             y = "time"
@@ -95,7 +144,7 @@ function StepCard() {
                     </VictoryChart>
                 </View>
             </View>
-        </View>
+        </Pressable>
     )
 }
 
