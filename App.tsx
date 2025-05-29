@@ -130,9 +130,13 @@ function NavBar({ state, descriptors, navigation }: BottomTabBarProps) {
     );
 }
 
-const DEVICE_NAME = 'ESP32_Fall_Step_BLE';
-const SERVICE_UUID = '12345678-1234-1234-1234-123456789abc';
-const STEPCOUNT_CHARACTERISTIC_UUID = 'abcd1234-1234-1234-1234-abcdef123456';
+const DEVICE_NAME = 'ESP32_Watch';
+const SERVICE_UUID = '0000180D-0000-1000-8000-00805F9B34FB';
+const STEPCOUNT_CHARACTERISTIC_UUID = '00002A37-0000-1000-8000-00805F9B34FB';
+//
+// const DEVICE_NAME = 'ESP32_Fall_Step_BLE';
+// const SERVICE_UUID = '12345678-1234-1234-1234-123456789abc';
+// const STEPCOUNT_CHARACTERISTIC_UUID = 'abcd1234-1234-1234-1234-abcdef123456';
 
 function App() {
   const [hasPermissions, setHasPermissions] = useState<boolean>(Platform.OS == 'ios');
@@ -144,7 +148,7 @@ function App() {
 
   const [device, setDevice] = useState<Device | null>(null);
 
-  const [stepCount, setStepCount] = useState(4512);
+  const [stepCount, setStepCount] = useState(0);
   const [heartRate, setHeartRate] = useState<number | null>(103);
 
   useEffect(() => {
