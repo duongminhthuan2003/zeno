@@ -244,20 +244,26 @@ function App() {
               const decoded = atob(char.value);
               console.log('BLE message:', decoded);
 
-              if (decoded.includes('Steps:')) {
-                  const match = decoded.match(/Steps:(\d+)/);
-                  if (match) {
-                      setStepCount(parseInt(match[1], 10));
-                      setFallDetected(false); // reset nếu không có té ngã
-                  }
-              } else if (decoded.includes('FALL')) {
-                  setFallDetected(true);
-              } else if (decoded.includes('HR:')) {
-                  const match = decoded.match(/HR:(\d+)/);
-                  if (match) {
-                      setHeartRate(parseInt(match[1], 10));
-                  }
-              }
+              const bleData = JSON.parse(decoded);
+              setHeartRate(bleData.bpm);
+              setStepCount(bleData.steps);
+
+              // if (decoded.includes('Steps:')) {
+              //     const match = decoded.match(/Steps:(\d+)/);
+              //     if (match) {
+              //         setStepCount(parseInt(match[1], 10));
+              //         setFallDetected(false); // reset nếu không có té ngã
+              //     }
+              // } else if (decoded.includes('FALL')) {
+              //     setFallDetected(true);
+              // } else if (decoded.includes('HR:')) {
+              //     const match = decoded.match(/HR:(\d+)/);
+              //     if (match) {
+              //         setHeartRate(parseInt(match[1], 10));
+              //     }
+              // }
+
+
           }
       );
 
