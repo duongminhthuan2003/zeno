@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {
   Button,
   Platform,
@@ -33,6 +33,8 @@ import HRPage from './pages/HRPage';
 import TempPage from './pages/TempPage';
 import { BluetoothContext } from './BluetoothContext';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
+import firestore from '@react-native-firebase/firestore';
+import { AppState } from 'react-native';
 
 const bleManager = new BleManager();
 
@@ -139,7 +141,7 @@ const STEPCOUNT_CHARACTERISTIC_UUID = '00002A37-0000-1000-8000-00805F9B34FB';
 // const STEPCOUNT_CHARACTERISTIC_UUID = 'abcd1234-1234-1234-1234-abcdef123456';
 
 function App() {
-  const [hasPermissions, setHasPermissions] = useState<boolean>(Platform.OS == 'ios');
+  const [hasPermissions, setHasPermissions] = useState<boolean>(Platform.OS === 'ios');
   const [waitingPerm, grantedPerm] = useAndroidPermissions();
   const [fallDetected, setFallDetected] = useState(false);
 
@@ -148,11 +150,11 @@ function App() {
 
   const [device, setDevice] = useState<Device | null>(null);
 
-  const [stepCount, setStepCount] = useState(0);
-  const [heartRate, setHeartRate] = useState<number | null>(103);
+  const [stepCount, setStepCount] = useState(30);
+  const [heartRate, setHeartRate] = useState<number | null>(87);
 
   useEffect(() => {
-      if (!(Platform.OS == 'ios')){
+      if (!(Platform.OS === 'ios')){
           setHasPermissions(grantedPerm);
       }
   }, [grantedPerm]);
@@ -261,6 +263,70 @@ function App() {
 
       return () => sub.remove();
   }, [device]);
+
+    const stepRef = useRef(stepCount);
+    const heartRateRef = useRef(heartRate);
+    const fallDetectedRef = useRef(fallDetected);
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+    useEffect(() => {
+        stepRef.current = stepCount;
+    }, [stepCount]);
+
+    useEffect(() => {
+        heartRateRef.current = heartRate;
+    }, [heartRate]);
+
+    useEffect(() => {
+        fallDetectedRef.current = fallDetected;
+    }, [fallDetected]);
+
+    useEffect(() => {
+        const now = new Date();
+        const seconds = now.getSeconds();
+        const msUntilNextTick = ((30 - (seconds % 30)) % 30) * 1000 - now.getMilliseconds();
+
+        const timeout = setTimeout(() => {
+            const uploadData = () => {
+                const timestamp = new Date().toISOString().split('.')[0] + 'Z';
+                console.log('🚀 Uploading to Firestore:', {
+                    step: stepRef.current,
+                    heart: heartRateRef.current,
+                    fall: fallDetectedRef.current,
+                    timestamp,
+                });
+
+                firestore()
+                    .collection('users')
+                    .doc('0001')
+                    .set({
+                        stepCount: stepRef.current,
+                        heartRate: heartRateRef.current,
+                        fallDetected: fallDetectedRef.current,
+                        timestamp,
+                    })
+                    .then(() => {
+                        console.log('✅ Data uploaded to Firestore at', timestamp);
+                    })
+                    .catch(error => {
+                        console.error('❌ Error uploading data to Firestore:', error);
+                    });
+            };
+
+            uploadData();
+
+            // Lưu interval vào ref để sau này clear được
+            intervalRef.current = setInterval(uploadData, 30000);
+        }, msUntilNextTick);
+
+        // Dọn dẹp khi component unmount hoặc deps thay đổi
+        return () => {
+            clearTimeout(timeout);
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        };
+    }, []);
 
   SystemNavigationBar.setNavigationColor('white', 'light', 'navigation');
 
