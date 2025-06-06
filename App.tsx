@@ -127,9 +127,9 @@ function NavBar({ state, descriptors, navigation }: BottomTabBarProps) {
     );
 }
 
-const DEVICE_NAME = 'ESP32_Fall_Step_BLE';
-const SERVICE_UUID = '12345678-1234-1234-1234-123456789abc';
-const STEPCOUNT_CHARACTERISTIC_UUID = 'abcd1234-1234-1234-1234-abcdef123456';
+const DEVICE_NAME = 'ESP32_Watch';
+const SERVICE_UUID = '91bad492-b950-4226-aa2b-4ede9fa42f59';
+const STEPCOUNT_CHARACTERISTIC_UUID = 'cba1d469-344c-4be3-ab3f-189f80dd7520';
 
 function App() {
   const [hasPermissions, setHasPermissions] = useState<boolean>(Platform.OS == 'ios');
