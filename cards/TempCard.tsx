@@ -17,7 +17,7 @@ const calculatedWidth = windowWidth - 22;
 
 function TempCard() {
     const navigation = useNavigation<any>();
-
+    const {temp} = useBluetooth();
     return (
         <Pressable style={{backgroundColor:'#FFF9EB', padding: 12, width: calculatedWidth, height: 180, borderRadius: 12, alignSelf: 'center'}} onPress={() => {navigation.navigate('TempPage');}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -27,16 +27,12 @@ function TempCard() {
                 <Text style={{fontSize: 15, lineHeight: 20, marginLeft: 10, fontFamily: 'Manrope-Medium'}}>Nhiệt độ cơ thể</Text>
             </View>
 
-            <View style={{flexDirection: 'row', marginTop: 20, justifyContent:'space-between', alignItems:'center'}}>
-                <View style={{alignContent:'flex-end'}}>
-                    <Text style={{fontSize: 40, fontFamily: 'Manrope-SemiBold', marginBottom: -3}}>36.8
-                        <View><Text style={{fontSize: 32, fontFamily: 'Manrope-Bold'}}>o</Text></View>
-                        C</Text>
-                    <Text style={{fontFamily: 'Manrope-Medium'}}>Đo gần nhất: 10:30 - Hôm nay</Text>
+            <View style={{marginTop: 0, alignItems: 'center', justifyContent: 'center', flex: 1}}>
+                <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+                    <Text style={{fontSize: 50, fontFamily: 'Manrope-SemiBold'}}>{temp}</Text>
+                    <Text style={{fontSize: 30, fontFamily: 'Manrope-Bold', lineHeight: 40}}>°</Text>
+                    <Text style={{fontSize: 50, fontFamily: 'Manrope-SemiBold'}}>C</Text>
                 </View>
-                <Pressable style={{backgroundColor:'#FFB200', height:'auto', borderRadius: 25}}>
-                    <Text style={{color:'#FFFFFF', marginVertical: 8, marginHorizontal:12, fontFamily: 'Manrope-Medium', top: -1}}>Cập nhật nhiệt độ</Text>
-                </Pressable>
             </View>
         </Pressable>
     )

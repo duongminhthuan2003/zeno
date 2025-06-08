@@ -10,32 +10,31 @@ import {VictoryBar,
 import {useBluetooth} from '../BluetoothContext.tsx';
 import {HugeiconsIcon} from '@hugeicons/react-native';
 import {RunningShoesIcon} from '@hugeicons/core-free-icons';
-import {useNavigation} from "@react-navigation/native";
-import { collection, getDocs, onSnapshot } from 'firebase/firestore'; // nếu dùng Firestore
-import { db } from '../firebaseConfig';
-import {useEffect, useState} from "react";
+import {useNavigation} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+import {useEffect, useState} from 'react';
 
 const windowWidth = Dimensions.get('window').width;
 const calculatedWidth = windowWidth - 22;
 
 const dayData = [
-    {day: 1, time: 6 * 60},
-    {day: 2, time: 6 * 60 + 27},
-    {day: 3, time: 7 * 60 + 18},
-    {day: 4, time: 6 * 60 + 18},
-    {day: 5, time: 7 * 60 + 34},
-    {day: 6, time: 6 * 60 + 35},
-    {day: 7, time: 6 * 60 + 36},
-    {day: 8, time: 7 * 60 + 37},
-    {day: 9, time: 6 * 60 + 38},
-    {day: 10, time: 8 * 60 + 39},
-    {day: 11, time: 6 * 60 + 40},
-    {day: 12, time: 6 * 60 + 41},
-    {day: 13, time: 6 * 60 + 57},
-    {day: 14, time: 6 * 60 + 13},
-    {day: 15, time: 0},
-    {day: 16, time: 0},
-    {day: 17, time: 0},
+    {day: 1, time: 12},
+    {day: 2, time: 0},
+    {day: 3, time: 0},
+    {day: 4, time: 0},
+    {day: 5, time: 0},
+    {day: 6, time: 0},
+    {day: 7, time: 0},
+    {day: 8, time: 16},
+    {day: 9, time: 24},
+    {day: 10, time: 0},
+    {day: 11, time: 0},
+    {day: 12, time: 0},
+    {day: 13, time: 52},
+    {day: 14, time: 58},
+    {day: 15, time: 12},
+    {day: 16, time: 15},
+    {day: 17, time: 3},
     {day: 18, time: 0},
     {day: 19, time: 0},
     {day: 20, time: 0},
@@ -46,9 +45,9 @@ const dayData = [
 ];
 
 const subscribeStepsPerHour = (setData: (data: any[]) => void) => {
-    const stepsRef = collection(db, 'users', '0001', 'steps');
+    const stepsRef = firestore().collection('users').doc('0001').collection('steps');
 
-    const unsubscribe = onSnapshot(stepsRef, (snapshot) => {
+    const unsubscribe = stepsRef.onSnapshot((snapshot) => {
         const hourBuckets = Array(24).fill(0);
         const now = new Date();
 
@@ -127,8 +126,8 @@ function StepCard() {
                             }}
                         />
                         <VictoryBar
-                            // data={chartData}
-                            data={chartData.length > 0 ? chartData : dayData}
+                            data={dayData}
+                            // data={chartData.length > 0 ? chartData : dayData}
                             alignment="middle"
                             x = "day"
                             y = "time"

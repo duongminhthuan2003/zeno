@@ -129,23 +129,23 @@ const twoWeeksData = [
 ];
 
 const dayData = [
-    {day: 1, time: 6 * 60},
-    {day: 2, time: 6 * 60 + 27},
-    {day: 3, time: 7 * 60 + 18},
-    {day: 4, time: 6 * 60 + 18},
-    {day: 5, time: 7 * 60 + 34},
-    {day: 6, time: 6 * 60 + 35},
-    {day: 7, time: 6 * 60 + 36},
-    {day: 8, time: 7 * 60 + 37},
-    {day: 9, time: 6 * 60 + 38},
-    {day: 10, time: 8 * 60 + 39},
-    {day: 11, time: 6 * 60 + 40},
-    {day: 12, time: 6 * 60 + 41},
-    {day: 13, time: 6 * 60 + 57},
-    {day: 14, time: 6 * 60 + 13},
-    {day: 15, time: 0},
-    {day: 16, time: 0},
-    {day: 17, time: 0},
+    {day: 1, time: 12},
+    {day: 2, time: 0},
+    {day: 3, time: 0},
+    {day: 4, time: 0},
+    {day: 5, time: 0},
+    {day: 6, time: 0},
+    {day: 7, time: 0},
+    {day: 8, time: 16},
+    {day: 9, time: 24},
+    {day: 10, time: 0},
+    {day: 11, time: 0},
+    {day: 12, time: 0},
+    {day: 13, time: 52},
+    {day: 14, time: 58},
+    {day: 15, time: 12},
+    {day: 16, time: 15},
+    {day: 17, time: 3},
     {day: 18, time: 0},
     {day: 19, time: 0},
     {day: 20, time: 0},
@@ -276,7 +276,7 @@ const StepPage = () => {
                             />
                             <VictoryBar
                                 // data={chartData}
-                                data={twoWeeksData}
+                                data={dayData}
                                 alignment="middle"
                                 x = "day"
                                 y = "time"

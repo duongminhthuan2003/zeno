@@ -17,13 +17,14 @@ const DetailScreen = () => {
             <StepCard />
             <HeartRateCard/>
             <View style={{marginTop:11}} />
+            <TempCard />
+            <View style={{marginTop:11}} />
             <View style={{flexDirection:'row', alignSelf: 'center', gap: 11}}>
                 <SpO2Card />
                 <WaterCard />
             </View>
             <View style={{marginTop:11}} />
             <SleepCard />
-            <TempCard />
         </ScrollView>
     );
 };

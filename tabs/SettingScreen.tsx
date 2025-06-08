@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Dimensions, Pressable, Text, View} from 'react-native';
 import {HugeiconsIcon} from '@hugeicons/react-native';
-import {Moon02Icon} from '@hugeicons/core-free-icons';
+import {Moon02Icon, Watch02Icon} from '@hugeicons/core-free-icons';
 import {useBluetooth} from '../BluetoothContext.tsx';
 
 const windowWidth = Dimensions.get('window').width;
@@ -20,7 +20,7 @@ const SettingScreen = () => {
             <View  style={{width: calculatedWidth, height: 180, backgroundColor: '#FFF5EF', borderRadius: 12, alignSelf:'center', padding: 12, justifyContent:'space-between'}}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <View style={{backgroundColor: '#FF7B24', padding: 5, width: 26, borderRadius: 7}}>
-                        <HugeiconsIcon icon={Moon02Icon} color={'#FFFFFF'} size={16} />
+                        <HugeiconsIcon icon={Watch02Icon} color={'#FFFFFF'} size={16} />
                     </View>
                     <Text style={{fontSize: 15, lineHeight: 20, marginLeft: 10, fontFamily:'Manrope-Medium'}}>Quản lý kết nối</Text>
                 </View>
@@ -35,9 +35,9 @@ const SettingScreen = () => {
                         <Text style={{fontSize: 35, fontFamily:'Manrope-SemiBold'}}>80%</Text>
                     </View>
 
-                    <View style={{marginBottom: 10}}> {/*Hiển thị phần trăm*/}
-                        <View style={{height: 8, backgroundColor: '#FFC299', borderRadius: 25}} /> {/*Hiển thị background*/}
-                        <View style={{height: 8, backgroundColor: '#FF7B24', borderRadius: 25, width:'80%', position:'absolute'}} /> {/*Hiển thị foreground*/}
+                    <View style={{marginBottom: 10}}>
+                        <View style={{height: 8, backgroundColor: '#FFC299', borderRadius: 25}} />
+                        <View style={{height: 8, backgroundColor: '#FF7B24', borderRadius: 25, width:'80%', position:'absolute'}} />
                     </View>
 
                     <Pressable style={{alignSelf:'center', backgroundColor: '#E7002E', borderRadius:25}}>

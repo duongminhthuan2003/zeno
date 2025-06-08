@@ -156,7 +156,7 @@ function HRPage() {
 
                 <View style={{alignItems: 'center', alignContent:'center', marginTop: 15}}>
                     <Text style={{fontFamily:'Manrope-SemiBold', fontSize: 40}}>{heartRate} bpm</Text>
-                    <Text style={{fontFamily:'Manrope-Medium', fontSize: 15, color: '#888888'}}>Chu kỳ đo: 2 giây</Text>
+                    <Text style={{fontFamily:'Manrope-Medium', fontSize: 15, color: '#888888'}}>Chu kỳ đo: 1 giây</Text>
                 </View>
             </View>
 

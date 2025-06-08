@@ -133,8 +133,8 @@ function NavBar({ state, descriptors, navigation }: BottomTabBarProps) {
 }
 
 const DEVICE_NAME = 'ESP32_Watch';
-const SERVICE_UUID = '0000180D-0000-1000-8000-00805F9B34FB';
-const STEPCOUNT_CHARACTERISTIC_UUID = '00002A37-0000-1000-8000-00805F9B34FB';
+const SERVICE_UUID = '6E400001-B5A3-F393-E0A9-E50E24DCCA9E';
+const STEPCOUNT_CHARACTERISTIC_UUID = '6E400003-B5A3-F393-E0A9-E50E24DCCA9E';
 //
 // const DEVICE_NAME = 'ESP32_Fall_Step_BLE';
 // const SERVICE_UUID = '12345678-1234-1234-1234-123456789abc';
@@ -152,6 +152,7 @@ function App() {
 
   const [stepCount, setStepCount] = useState(30);
   const [heartRate, setHeartRate] = useState<number | null>(87);
+  const [temp, setTemp] = useState(30);
 
   useEffect(() => {
       if (!(Platform.OS === 'ios')){
@@ -244,26 +245,20 @@ function App() {
               const decoded = atob(char.value);
               console.log('BLE message:', decoded);
 
-              const bleData = JSON.parse(decoded);
-              setHeartRate(bleData.bpm);
-              setStepCount(bleData.steps);
+              try {
+                  const bleData = decoded.split(',');
+                  if (bleData.length === 3) {
+                      const bpm = parseInt(bleData[0], 10);
+                      const steps = parseInt(bleData[1], 10);
+                      const tempa = parseFloat(bleData[2]);
 
-              // if (decoded.includes('Steps:')) {
-              //     const match = decoded.match(/Steps:(\d+)/);
-              //     if (match) {
-              //         setStepCount(parseInt(match[1], 10));
-              //         setFallDetected(false); // reset nếu không có té ngã
-              //     }
-              // } else if (decoded.includes('FALL')) {
-              //     setFallDetected(true);
-              // } else if (decoded.includes('HR:')) {
-              //     const match = decoded.match(/HR:(\d+)/);
-              //     if (match) {
-              //         setHeartRate(parseInt(match[1], 10));
-              //     }
-              // }
-
-
+                      setHeartRate(bpm);
+                      setStepCount(steps);
+                      setTemp(tempa);
+                      console.log('Updated data');
+                  }
+              } catch (jsonError) {
+              }
           }
       );
 
@@ -305,6 +300,8 @@ function App() {
                 firestore()
                     .collection('users')
                     .doc('0001')
+                    .collection('data')
+                    .doc(timestamp) // Đặt tên document bằng timestamp
                     .set({
                         stepCount: stepRef.current,
                         heartRate: heartRateRef.current,
@@ -348,7 +345,7 @@ function App() {
               />
 
               <BluetoothContext.Provider
-                  value={{ device, stepCount, fallDetected, connectionStatus, heartRate }}
+                  value={{ device, stepCount, fallDetected, connectionStatus, heartRate, temp }}
               >
                   <NavigationContainer theme={MyTheme}>
                         <Stack.Navigator screenOptions={{headerShown: false}}>

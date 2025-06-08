@@ -5,6 +5,7 @@ import StepDashboard from '../cards/StepDashboard.tsx';
 import SleepCard from '../cards/SleepCard.tsx';
 import HeartRateCard from "../cards/HeartRateCard.tsx";
 import {useNavigation} from '@react-navigation/native';
+import TempCard from "../cards/TempCard.tsx";
 
 const HomeScreen = () => {
     return (
@@ -15,8 +16,9 @@ const HomeScreen = () => {
             </View>
 
             <StepDashboard />
-            <SleepCard />
             <HeartRateCard />
+            <View style={{marginTop: 11}}></View>
+            <TempCard />
         </ScrollView>
     );
 };
